@@ -40,14 +40,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.topRight,
-                    colors: [Colors.deepPurple, Colors.lightBlueAccent, Colors.pinkAccent]
+                    colors: [Color(0xfff6a56f), Color(0xffcd81c1), Color(0xff55bacc)]
                 ),
                 shape: BoxShape.rectangle,
               ),
             ),
             Container(
               height: MediaQuery.of(context).size.height / 1.5,
-              color: Colors.black87,
+              color: Color(0xff333333),
               child: Column(
                 children: [
                   SizedBox(
