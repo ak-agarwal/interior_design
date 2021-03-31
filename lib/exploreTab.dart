@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:interior_design/databaseFiles/database.dart';
+import 'package:interior_design/databaseFiles/post.dart';
+import 'package:interior_design/screens/addPost.dart';
 
 class ExploreTab extends StatefulWidget {
 
@@ -8,6 +11,8 @@ class ExploreTab extends StatefulWidget {
 }
 
 class _ExploreTabState extends State<ExploreTab> {
+
+  // List<Post> post = [];
 
   List<String> images = ["https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/amazon-rivet-furniture-1533048038.jpg",
     "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/amazon-rivet-furniture-1533048038.jpg",
@@ -22,6 +27,13 @@ class _ExploreTabState extends State<ExploreTab> {
     "This is Love",
     "OMG, Awesome",
     "No Caption"];
+
+  @override
+  void initState() {
+    super.initState();
+    // post = getAllPosts() as List<Post>;
+    // print(post);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,8 +46,13 @@ class _ExploreTabState extends State<ExploreTab> {
           color: Colors.white
         ),),
         actions: [
-          IconButton(icon: Icon(Icons.search, color: Colors.white,), onPressed: () {}),
-          IconButton(icon: Icon(Icons.add, color: Colors.white,), onPressed: () {}),
+          IconButton(icon: Icon(Icons.add, color: Colors.white,), onPressed: () {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AddPost()),
+                    (Route<dynamic> route) => false);
+          }),
         ],
       ),
       body: Container(

@@ -11,9 +11,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Fashion Furniture',
+      title: 'Try Before Buy',
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+        primarySwatch: Colors.grey,
       ),
       home: MyHomePage(),
     );
