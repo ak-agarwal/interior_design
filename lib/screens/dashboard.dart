@@ -1,9 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:interior_design/exploreTab.dart';
 import 'package:interior_design/marketplaceTab.dart';
 import 'package:interior_design/profileTab.dart';
 
 class Dashboard extends StatefulWidget {
+  User user;
+
+  Dashboard({this.user});
   @override
   _DashboardState createState() => _DashboardState();
 }
@@ -12,12 +16,6 @@ class _DashboardState extends State<Dashboard> {
 
   int _pageIndex = 0;
   PageController _pageController;
-
-  List<Widget> tabPages = [
-    ExploreTab(),
-    MarketPlaceTab(),
-    ProfileTab(),
-  ];
 
   @override
   void initState() {
@@ -51,7 +49,13 @@ class _DashboardState extends State<Dashboard> {
         ],
       ),
       body: PageView(
-      children: tabPages,
+      children: [
+        ExploreTab(
+          user: widget.user,
+        ),
+        MarketPlaceTab(),
+        ProfileTab(),
+      ],
       onPageChanged: onPageChanged,
       controller: _pageController,
     ),

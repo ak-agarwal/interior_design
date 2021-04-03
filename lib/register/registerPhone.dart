@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:interior_design/databaseFiles/Users.dart';
+import 'package:interior_design/databaseFiles/database.dart';
 import 'package:interior_design/screens/dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterPhone extends StatefulWidget {
   @override
@@ -71,13 +74,24 @@ class _RegisterPhoneState extends State<RegisterPhone> {
                       UserCredential result =
                           await _auth.signInWithCredential(credential);
                       User user = result.user;
+
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      prefs.setString("user", user.uid);
                       if (user != null) {
+                        // List<Users> list = [];
+                        // list = getAllUsers() as List<Users>;
+                        // for(int i=0; i<list.length; i++) {
+                        //   if(list)
+                        // }
+
 // on verification successful go to dashboard
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return Dashboard();
+                              return Dashboard(
+                                user: user,
+                              );
                             },
                           ),
                         );

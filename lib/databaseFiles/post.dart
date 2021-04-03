@@ -1,11 +1,10 @@
-import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:interior_design/databaseFiles/database.dart';
 import 'comments.dart';
 
 class Post {
-  Url postImage;
+  String postImage;
   String author; //user uid
   String description; //post desc
   Set usersLiked = {};
@@ -37,7 +36,7 @@ class Post {
     this.update();
   }
 
-  void addUrl(Url image) {
+  void addUrl(String image) {
     this.postImage = image;
   }
 

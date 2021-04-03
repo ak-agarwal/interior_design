@@ -42,7 +42,7 @@ DatabaseReference saveUser(Users user) {
 }
 
 
-Future<List<Post>> getAllUsers() async {
+Future<List<Users>> getAllUsers() async {
   DataSnapshot dataSnapshot = await databaseReference.child('/users/').once();
   List<Users> users = [];
   if (dataSnapshot.value != null) {

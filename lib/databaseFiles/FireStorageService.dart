@@ -12,7 +12,7 @@ class FireStorageService extends ChangeNotifier {
   }
 }
 
-Future uploadPic() async {
+Future<String> uploadPic() async {
   final _storage = FirebaseStorage.instance;
   final _picker = ImagePicker();
   PickedFile image;

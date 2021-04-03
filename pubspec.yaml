@@ -38,6 +38,7 @@ dependencies:
   firebase_database: 4.3.0
   firebase_storage: ^4.0.0
   permission_handler: ^5.0.1+1
+  shared_preferences: ^0.5.12
 
 dev_dependencies:
   flutter_test:

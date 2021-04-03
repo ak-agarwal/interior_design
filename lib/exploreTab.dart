@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:interior_design/databaseFiles/database.dart';
@@ -5,6 +6,10 @@ import 'package:interior_design/databaseFiles/post.dart';
 import 'package:interior_design/screens/addPost.dart';
 
 class ExploreTab extends StatefulWidget {
+
+  User user;
+
+  ExploreTab({this.user});
 
   @override
   _ExploreTabState createState() => _ExploreTabState();
@@ -50,7 +55,9 @@ class _ExploreTabState extends State<ExploreTab> {
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => AddPost()),
+                    builder: (context) => AddPost(
+                      user: widget.user,
+                    )),
                     (Route<dynamic> route) => false);
           }),
         ],

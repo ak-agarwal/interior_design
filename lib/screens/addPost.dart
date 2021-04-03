@@ -1,15 +1,22 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:interior_design/databaseFiles/database.dart';
+import 'package:interior_design/databaseFiles/post.dart';
 import 'package:interior_design/exploreTab.dart';
 
 class AddPost extends StatefulWidget {
+
+  User user;
+
+  AddPost({this.user});
+
   @override
   _AddPostState createState() => _AddPostState();
-  
+
 }
 
 class _AddPostState extends State<AddPost> {
@@ -41,11 +48,11 @@ class _AddPostState extends State<AddPost> {
             lockAspectRatio: true),
         iosUiSettings: IOSUiSettings(
             title: 'Crop the Image', aspectRatioLockEnabled: true));
-      setState(() {
-        List<int> imageBytes = croppedFile.readAsBytesSync();
-        base64Image = base64.encode(imageBytes);
-        imageSelected = true;
-      });
+    setState(() {
+      List<int> imageBytes = croppedFile.readAsBytesSync();
+      base64Image = base64.encode(imageBytes);
+      imageSelected = true;
+    });
   }
 
   _imgFromGallery() async {
@@ -68,11 +75,11 @@ class _AddPostState extends State<AddPost> {
       iosUiSettings:
       IOSUiSettings(title: 'Crop the Image', aspectRatioLockEnabled: true),
     );
-      setState(() {
-        List<int> imageBytes = croppedFile.readAsBytesSync();
-        base64Image = base64.encode(imageBytes);
-        imageSelected = true;
-      });
+    setState(() {
+      List<int> imageBytes = croppedFile.readAsBytesSync();
+      base64Image = base64.encode(imageBytes);
+      imageSelected = true;
+    });
   }
 
   void _showPicker(context) {
@@ -218,7 +225,11 @@ class _AddPostState extends State<AddPost> {
                   child: new Text("Proceed", style: TextStyle(
                       color: Colors.white
                   ),),
-                  onPressed: () {},
+                  onPressed: () async {
+                    // String url = uploadPic() as String;
+                    // print(url);
+                    addPost(desController.text, widget.user.uid, null);
+                  },
                   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
               ),
             ),
@@ -241,5 +252,11 @@ class _AddPostState extends State<AddPost> {
         ),
       ),
     );
+  }
+
+  void addPost(String desc, String userID, String url) {
+    var post = new Post(description: desc, author: userID);
+    post.addUrl(url);
+    post.setId(savePost(post));
   }
 }
