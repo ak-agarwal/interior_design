@@ -7,8 +7,8 @@ import 'package:permission_handler/permission_handler.dart';
 
 class FireStorageService extends ChangeNotifier {
   FireStorageService();
-  static Future<dynamic> loadImage(BuildContext context, String Image) async {
-    return await FirebaseStorage.instance.ref().child(Image).getDownloadURL();
+  static Future<dynamic> loadImage(BuildContext context, String image) async {
+    return await FirebaseStorage.instance.ref().child(image).getDownloadURL();
   }
 }
 
@@ -26,8 +26,7 @@ Future<String> uploadPic() async {
 
     if (image != null) {
       //upload to firebase
-      var snapshot =
-          await _storage.ref().child('postsImage').putFile(file).onComplete;
+      var snapshot = _storage.ref().child('postsImage').putFile(file).snapshot;
       var downloadURL = await snapshot.ref.getDownloadURL();
       return downloadURL;
     } else {
@@ -36,4 +35,5 @@ Future<String> uploadPic() async {
   } else {
     await Permission.photos.request();
   }
+  return null;
 }

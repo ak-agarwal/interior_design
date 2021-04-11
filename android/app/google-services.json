@@ -1,33 +1,42 @@
 {
   "project_info": {
-    "project_number": "793433461485",
-    "project_id": "interior-design1",
-    "storage_bucket": "interior-design1.appspot.com"
+    "project_number": "541515311895",
+    "firebase_url": "https://interior-design-5bd2d-default-rtdb.firebaseio.com",
+    "project_id": "interior-design-5bd2d",
+    "storage_bucket": "interior-design-5bd2d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:793433461485:android:43988e07784168900932e4",
+        "mobilesdk_app_id": "1:541515311895:android:086d1664b13658b51d2552",
         "android_client_info": {
           "package_name": "com.example.interior_design"
         }
       },
       "oauth_client": [
         {
-          "client_id": "793433461485-g8f144cjg25u6a1837td3h7seb92si1b.apps.googleusercontent.com",
+          "client_id": "541515311895-48bmb1qo8c8c70jiat5njirkgjq1cqvt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.interior_design",
+            "certificate_hash": "6b88de739528c06f1da6710baf968e5b65a57f3c"
+          }
+        },
+        {
+          "client_id": "541515311895-rjsk7atg082hm75o1204n3q61jd0t1hf.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyANkCc7W_4px78xNytWdXnTTD2GoxrW5k0"
+          "current_key": "AIzaSyAfYofNv2CdgH0lP--7g3zt01SPkST2vYs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "793433461485-g8f144cjg25u6a1837td3h7seb92si1b.apps.googleusercontent.com",
+              "client_id": "541515311895-rjsk7atg082hm75o1204n3q61jd0t1hf.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

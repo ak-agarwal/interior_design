@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:interior_design/databaseFiles/Users.dart';
-import 'package:interior_design/databaseFiles/database.dart';
 import 'package:interior_design/screens/dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -63,6 +61,7 @@ class _RegisterPhoneState extends State<RegisterPhone> {
                   ],
                 ),
                 actions: [
+                  // ignore: deprecated_member_use
                   FlatButton(
                     onPressed: () async {
 // generate credential object
@@ -75,7 +74,8 @@ class _RegisterPhoneState extends State<RegisterPhone> {
                           await _auth.signInWithCredential(credential);
                       User user = result.user;
 
-                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
                       prefs.setString("user", user.uid);
                       if (user != null) {
                         // List<Users> list = [];
@@ -128,10 +128,13 @@ class _RegisterPhoneState extends State<RegisterPhone> {
               height: MediaQuery.of(context).size.height / 2.5,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.topRight,
-                  colors: [Color(0xfff6a56f), Color(0xffcd81c1), Color(0xff55bacc)]
-                ),
+                    begin: Alignment.topLeft,
+                    end: Alignment.topRight,
+                    colors: [
+                      Color(0xfff6a56f),
+                      Color(0xffcd81c1),
+                      Color(0xff55bacc)
+                    ]),
                 shape: BoxShape.rectangle,
               ),
             ),

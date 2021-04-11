@@ -30,6 +30,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
+  void initState() {
+    Firebase.initializeApp();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
@@ -43,8 +49,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.topRight,
-                    colors: [Color(0xfff6a56f), Color(0xffcd81c1), Color(0xff55bacc)]
-                ),
+                    colors: [
+                      Color(0xfff6a56f),
+                      Color(0xffcd81c1),
+                      Color(0xff55bacc)
+                    ]),
                 shape: BoxShape.rectangle,
               ),
             ),
@@ -61,10 +70,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text("Hey there!", style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22.0
-                        ),),
+                        Text(
+                          "Hey there!",
+                          style: TextStyle(color: Colors.white, fontSize: 22.0),
+                        ),
                       ],
                     ),
                   ),
@@ -77,10 +86,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Expanded(
-                          child: Text("Welcome to FashionOHolics, \nexplore number of interior designers here!", style: TextStyle(
-                              color: Colors.white,
-                            fontSize: 16.0
-                          ), textAlign: TextAlign.justify,),
+                          child: Text(
+                            "Welcome to FashionOHolics, \nexplore number of interior designers here!",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 16.0),
+                            textAlign: TextAlign.justify,
+                          ),
                         ),
                       ],
                     ),
@@ -90,28 +101,35 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100.0)
-                    ),
+                        borderRadius: BorderRadius.circular(100.0)),
                     width: 320.0,
                     height: 50.0,
                     child: RaisedButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPhone()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegisterPhone()));
                       },
                       child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(FontAwesomeIcons.google, color: Colors.white,),
-                        Text("Continue with Google", style: TextStyle(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.google,
                             color: Colors.white,
-                        ),)
-                      ],
-                    ),
+                          ),
+                          Text(
+                            "Continue with Google",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          )
+                        ],
+                      ),
                       color: Colors.transparent,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(color: Colors.black)
-                      ),
+                          side: BorderSide(color: Colors.black)),
                     ),
                   ),
                   SizedBox(
@@ -121,22 +139,32 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Colors.transparent,
                     width: 320.0,
                     height: 50.0,
-                    child: RaisedButton(onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPhone()));
-                    }, child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(FontAwesomeIcons.facebook, color: Colors.white,),
-                        Text("Continue with Facebook", style: TextStyle(
-                          color: Colors.white,
-                        ),)
-                      ],
-                    ),
+                    child: RaisedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegisterPhone()));
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.facebook,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            "Continue with Facebook",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          )
+                        ],
+                      ),
                       color: Colors.transparent,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(color: Colors.black)
-                      ),
+                          side: BorderSide(color: Colors.black)),
                     ),
                   )
                 ],
@@ -148,7 +176,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
 
 // class MyHomePage extends StatefulWidget {
 //   @override
