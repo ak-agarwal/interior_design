@@ -1,14 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:interior_design/databaseFiles/database.dart';
-import 'comments.dart';
 
 class Post {
   String postImage;
   String author; //user uid
   String description; //post desc
   Set usersLiked = {};
-  List<Map<String, dynamic>> comments = [];
 
   DatabaseReference _id;
 
@@ -31,13 +29,9 @@ class Post {
     this._id = id;
   }
 
-  void addComment(Comments c) {
-    this.comments.add(c.toJson());
-    this.update();
-  }
-
   void addUrl(String image) {
     this.postImage = image;
+    // this.update();
   }
 
   Map<String, dynamic> toJson() {
@@ -46,19 +40,27 @@ class Post {
       'author': this.author,
       'description': this.description,
       'usersLiked': this.usersLiked.toList(),
-      'comments': this.comments
     };
+    // }
+    // Map<String, dynamic> toJson() {
+    //   final Map<String, dynamic> data = new Map<String, dynamic>();
+    //   data['postImage'] = this.postImage;
+    //   data['author'] = this.author;
+    //   data['description'] = this.description;
+    //   data['usersLiked'] = this.usersLiked.toString();
+    //   data['comments'] = this.comments.toString();
+    //   print("hellllllll");
+    //   return data;
+    // }
   }
 }
 
 Post createPost(record) {
-  //record is value
   Map<String, dynamic> attributes = {
     'postImage': '',
     'author': '',
     'description': '',
     'usersLiked': [],
-    'comments': []
   };
 
   record.forEach((key, value) => {attributes[key] = value});
@@ -66,7 +68,6 @@ Post createPost(record) {
   Post post = new Post(
       author: attributes['author'], description: attributes['description']);
   post.usersLiked = new Set.from(attributes['usersLiked']);
-  post.comments = new List.from(attributes['comments']);
   post.postImage = attributes['postImage'];
   return post;
 }

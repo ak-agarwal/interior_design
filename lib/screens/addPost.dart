@@ -4,23 +4,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:interior_design/databaseFiles/Comments.dart';
+import 'package:interior_design/databaseFiles/FireStorageService.dart';
 import 'package:interior_design/databaseFiles/database.dart';
 import 'package:interior_design/databaseFiles/post.dart';
 import 'package:interior_design/exploreTab.dart';
 
 class AddPost extends StatefulWidget {
-
   User user;
-
   AddPost({this.user});
 
   @override
   _AddPostState createState() => _AddPostState();
-
 }
 
 class _AddPostState extends State<AddPost> {
-
   File croppedFile;
   File _image;
   String base64Image;
@@ -73,7 +71,7 @@ class _AddPostState extends State<AddPost> {
           initAspectRatio: CropAspectRatioPreset.square,
           lockAspectRatio: true),
       iosUiSettings:
-      IOSUiSettings(title: 'Crop the Image', aspectRatioLockEnabled: true),
+          IOSUiSettings(title: 'Crop the Image', aspectRatioLockEnabled: true),
     );
     setState(() {
       List<int> imageBytes = croppedFile.readAsBytesSync();
@@ -126,9 +124,8 @@ class _AddPostState extends State<AddPost> {
           onPressed: () {
             Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => ExploreTab()),
-                    (Route<dynamic> route) => false);
+                MaterialPageRoute(builder: (context) => ExploreTab()),
+                (Route<dynamic> route) => false);
           },
         ),
       ),
@@ -138,7 +135,7 @@ class _AddPostState extends State<AddPost> {
           children: [
             Center(
               child: GestureDetector(
-                // onTap: () => _showPicker(context),
+                onTap: () => _showPicker(context),
                 child: Container(
                   height: 400.0,
                   width: 300.0,
@@ -155,25 +152,24 @@ class _AddPostState extends State<AddPost> {
                       children: [
                         croppedFile != null
                             ? ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: Image.file(
-                            croppedFile,
-                            width: 500.0,
-                            height: 300.0,
-                            fit: BoxFit.fitHeight,
-                          ),
-                        )
+                                borderRadius: BorderRadius.circular(50),
+                                child: Image.file(
+                                  croppedFile,
+                                  width: 500.0,
+                                  height: 300.0,
+                                  fit: BoxFit.fitHeight,
+                                ),
+                              )
                             : IconButton(
-                          padding: EdgeInsets.zero,
-                          icon: Center(
-                            child: Icon(Icons.upload_sharp,
-                                color: Colors.white,
-                                size: 50.0),
-                          ),
-                          onPressed: () {
-                            _showPicker(context);
-                          },
-                        ),
+                                padding: EdgeInsets.zero,
+                                icon: Center(
+                                  child: Icon(Icons.upload_sharp,
+                                      color: Colors.white, size: 50.0),
+                                ),
+                                onPressed: () {
+                                  _showPicker(context);
+                                },
+                              ),
 
                         // Icon(
                         //   Icons.upload_sharp, size: 30.0, color: Colors.white,
@@ -185,13 +181,19 @@ class _AddPostState extends State<AddPost> {
                 ),
               ),
             ),
-            SizedBox(height: 40.0,),
+            SizedBox(
+              height: 40.0,
+            ),
             Padding(
               padding: const EdgeInsets.only(left: 12.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text("Description", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22.0)),
+                  Text("Description",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22.0)),
                 ],
               ),
             ),
@@ -208,7 +210,8 @@ class _AddPostState extends State<AddPost> {
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.white),
                 ),
-                contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 18),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 15, horizontal: 18),
                 fillColor: Colors.white,
               ),
               maxLines: 1,
@@ -216,47 +219,58 @@ class _AddPostState extends State<AddPost> {
               style: TextStyle(fontSize: 16.0),
               textInputAction: TextInputAction.done,
             ),
-            SizedBox(height: 30.0,),
+            SizedBox(
+              height: 30.0,
+            ),
             ButtonTheme(
               height: 50.0,
               minWidth: 200.0,
               child: RaisedButton(
                   color: Color(0xff333333),
-                  child: new Text("Proceed", style: TextStyle(
-                      color: Colors.white
-                  ),),
+                  child: new Text(
+                    "Proceed",
+                    style: TextStyle(color: Colors.white),
+                  ),
                   onPressed: () async {
                     // String url = uploadPic() as String;
                     // print(url);
-                    addPost(desController.text, widget.user.uid, null);
+                    addPost(desController.text, widget.user, null);
                   },
-                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-              ),
+                  shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(30.0))),
             ),
-            SizedBox(height: 30.0,),
+            SizedBox(
+              height: 30.0,
+            ),
             ButtonTheme(
               height: 50.0,
               minWidth: 200.0,
               buttonColor: Colors.red,
               child: RaisedButton(
                   color: Colors.red,
-                  child: new Text("Discard", style: TextStyle(
-                      color: Colors.white
-                  ),),
+                  child: new Text(
+                    "Discard",
+                    style: TextStyle(color: Colors.white),
+                  ),
                   onPressed: () {},
-                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-              ),
+                  shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(30.0))),
             ),
-            SizedBox(height: 30.0,),
+            SizedBox(
+              height: 30.0,
+            ),
           ],
         ),
       ),
     );
   }
 
-  void addPost(String desc, String userID, String url) {
-    var post = new Post(description: desc, author: userID);
+  void addPost(String desc, User user, String url) async {
+    var post = new Post(description: desc, author: user.uid);
+    String url = await uploadPic(_image);
     post.addUrl(url);
     post.setId(savePost(post));
+    post.likedPost(user);
+    // getAllPosts();
   }
 }

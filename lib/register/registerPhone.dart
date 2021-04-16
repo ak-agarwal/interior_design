@@ -5,11 +5,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterPhone extends StatefulWidget {
+  User user;
+  RegisterPhone({this.user});
   @override
   _RegisterPhoneState createState() => _RegisterPhoneState();
 }
 
 class _RegisterPhoneState extends State<RegisterPhone> {
+  User user;
+  _RegisterPhoneState({this.user});
   final _phoneController = TextEditingController();
   final _otpController = TextEditingController();
 
@@ -77,6 +81,8 @@ class _RegisterPhoneState extends State<RegisterPhone> {
                       SharedPreferences prefs =
                           await SharedPreferences.getInstance();
                       prefs.setString("user", user.uid);
+                      print(user.uid);
+                      print(user.displayName);
                       if (user != null) {
                         // List<Users> list = [];
                         // list = getAllUsers() as List<Users>;

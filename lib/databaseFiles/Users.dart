@@ -43,7 +43,7 @@ Users createUsers(record) {
 
   Users users = new Users(null);
 
-  users.uid = attributes['uid'];
+  users.uid = attributes['uid'] as String;
   users.description = attributes['description'];
   users.name = attributes['name'];
   return users;

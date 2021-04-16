@@ -5,7 +5,6 @@ import 'package:interior_design/screens/addPost.dart';
 
 class ExploreTab extends StatefulWidget {
   User user;
-
   ExploreTab({this.user});
 
   @override
@@ -14,6 +13,8 @@ class ExploreTab extends StatefulWidget {
 
 class _ExploreTabState extends State<ExploreTab> {
   // List<Post> post = [];
+  User user;
+  _ExploreTabState({this.user});
 
   List<String> images = [
     "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/amazon-rivet-furniture-1533048038.jpg",

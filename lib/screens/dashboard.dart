@@ -6,14 +6,14 @@ import 'package:interior_design/profileTab.dart';
 
 class Dashboard extends StatefulWidget {
   User user;
-
   Dashboard({this.user});
   @override
   _DashboardState createState() => _DashboardState();
 }
 
 class _DashboardState extends State<Dashboard> {
-
+  User user;
+  _DashboardState({this.user});
   int _pageIndex = 0;
   PageController _pageController;
 
@@ -41,24 +41,36 @@ class _DashboardState extends State<Dashboard> {
         onTap: onTabTapped,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: Icon(Icons.explore_outlined, color: Colors.white,), label: ""),
+              icon: Icon(
+                Icons.explore_outlined,
+                color: Colors.white,
+              ),
+              label: ""),
           BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart, color: Colors.white,), label: ""),
+              icon: Icon(
+                Icons.shopping_cart,
+                color: Colors.white,
+              ),
+              label: ""),
           BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline_outlined, color: Colors.white,), label: ""),
+              icon: Icon(
+                Icons.person_outline_outlined,
+                color: Colors.white,
+              ),
+              label: ""),
         ],
       ),
       body: PageView(
-      children: [
-        ExploreTab(
-          user: widget.user,
-        ),
-        MarketPlaceTab(),
-        ProfileTab(),
-      ],
-      onPageChanged: onPageChanged,
-      controller: _pageController,
-    ),
+        children: [
+          ExploreTab(
+            user: widget.user,
+          ),
+          MarketPlaceTab(),
+          ProfileTab(),
+        ],
+        onPageChanged: onPageChanged,
+        controller: _pageController,
+      ),
 
       // SingleChildScrollView(
       //   child: Column(
@@ -103,7 +115,7 @@ class _DashboardState extends State<Dashboard> {
   }
 
   void onTabTapped(int index) {
-    this._pageController.animateToPage(index,duration: const Duration(milliseconds: 500),curve: Curves.easeInOut);
+    this._pageController.animateToPage(index,
+        duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
   }
-
 }

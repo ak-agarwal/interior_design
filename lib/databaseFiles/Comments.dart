@@ -1,5 +1,5 @@
 class Comments {
-  int uid;
+  String uid;
   String comm;
 
   Comments({this.uid, this.comm});
