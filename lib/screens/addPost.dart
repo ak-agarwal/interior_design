@@ -266,18 +266,20 @@ class _AddPostState extends State<AddPost> {
   }
 
   void addPost(String desc, User user, String url) async {
-    var post = new Post(description: desc, author: user.uid);
-    String url = await uploadPic(_image);
-    print(url);
-    post.addUrl(url);
-    post.setId(savePost(post));
-    post.likedPost(user);
-    // print("here");
-    // List<Post> lists = await getAllPosts();
-    // for (Post b in lists) {
-    //   print(b.author);
-    //   print(b.description);
-    // }
-    // print("heellllllooooo");
+    // var post = new Post(description: desc, author: user.uid);
+    // String url = await uploadPic(_image);
+    // print(url);
+    // post.addUrl(url);
+    // post.setId(savePost(post));
+    // post.likedPost(user);
+    List<Post> lists = await getAllPosts();
+    for (Post b in lists) {
+      print(b.author);
+      print(b.description);
+      print(b.postImage);
+      print("/n");
+      print(b.usersLiked.toString());
+      print("/n/n/n/n");
+    }
   }
 }

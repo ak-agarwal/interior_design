@@ -57,10 +57,10 @@ class Post {
 
 Post createPost(record) {
   Map<String, dynamic> attributes = {
-    // 'postImage': '',
     'author': '',
     'description': '',
     'usersLiked': [],
+    'postImage': '',
   };
   print("req");
   record.forEach((key, value) => {attributes[key] = value});
@@ -68,6 +68,6 @@ Post createPost(record) {
   Post post = new Post(
       author: attributes['author'], description: attributes['description']);
   post.usersLiked = new Set.from(attributes['usersLiked']);
-  // post.postImage = attributes['postImage'];
+  post.postImage = attributes['postImage'];
   return post;
 }
