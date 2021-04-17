@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:interior_design/databaseFiles/Comments.dart';
 import 'package:interior_design/databaseFiles/FireStorageService.dart';
 import 'package:interior_design/databaseFiles/database.dart';
 import 'package:interior_design/databaseFiles/post.dart';
@@ -268,9 +268,16 @@ class _AddPostState extends State<AddPost> {
   void addPost(String desc, User user, String url) async {
     var post = new Post(description: desc, author: user.uid);
     String url = await uploadPic(_image);
+    print(url);
     post.addUrl(url);
     post.setId(savePost(post));
     post.likedPost(user);
-    // getAllPosts();
+    // print("here");
+    // List<Post> lists = await getAllPosts();
+    // for (Post b in lists) {
+    //   print(b.author);
+    //   print(b.description);
+    // }
+    // print("heellllllooooo");
   }
 }

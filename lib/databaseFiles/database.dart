@@ -17,20 +17,18 @@ void updatePost(Post post, DatabaseReference id) {
 
 //Explore Tab
 Future<List<Post>> getAllPosts() async {
-  DataSnapshot dataSnapshot = await databaseReference.child('/posts ').once();
+  DataSnapshot dataSnapshot = await databaseReference.child('posts/').once();
   List<Post> posts = [];
-  if (dataSnapshot.value != null) {
-    dataSnapshot.value.forEach((key, value) {
-      Post post = createPost(value);
-      post.setId(databaseReference.child('posts/' + key));
-      posts.add(post);
-      print(post.author);
-      print(post.postImage);
-      print(post.description);
-      return post;
-    });
-  }
-  return [];
+  dataSnapshot.value.forEach((key, value) {
+    Post post = createPost(value);
+    post.setId(databaseReference.child('posts/' + key));
+    posts.add(post);
+    print(post.author);
+    print(post.postImage);
+    print(post.description);
+    return posts;
+  });
+  return posts;
 }
 
 //Update Like, Comment
