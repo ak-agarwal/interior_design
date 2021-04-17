@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:interior_design/databaseFiles/database.dart';
 
@@ -12,11 +11,11 @@ class Post {
 
   Post({this.description, this.author});
 
-  void likedPost(User user) {
-    if (this.usersLiked.contains(user.uid)) {
-      this.usersLiked.remove(user.uid);
+  void likedPost(String user) {
+    if (this.usersLiked.contains(user)) {
+      this.usersLiked.remove(user);
     } else {
-      this.usersLiked.add(user.uid);
+      this.usersLiked.add(user);
     }
     this.update();
   }

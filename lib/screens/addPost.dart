@@ -280,6 +280,7 @@ class _AddPostState extends State<AddPost> {
       print("/n");
       print(b.usersLiked.toString());
       print("/n/n/n/n");
+      print(lists.length);
     }
   }
 }

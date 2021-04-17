@@ -10,15 +10,19 @@ class Users {
 
   Users(User user) {
     this.uid = user.uid;
-    this.name = user.displayName;
   }
 
   void update() {
     updateUser(this, this._id);
   }
 
-  void adDescription(String str) {
+  void addDescription(String str) {
     this.description = str;
+    this.update();
+  }
+
+  void addName(String name) {
+    this.name = name;
     this.update();
   }
 
@@ -38,12 +42,9 @@ class Users {
 Users createUsers(record) {
   //record is value
   Map<String, dynamic> attributes = {'uid': '', 'description': '', 'name': ''};
-
   record.forEach((key, value) => {attributes[key] = value});
-
   Users users = new Users(null);
-
-  users.uid = attributes['uid'] as String;
+  users.uid = attributes['uid'];
   users.description = attributes['description'];
   users.name = attributes['name'];
   return users;

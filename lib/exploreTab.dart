@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:interior_design/databaseFiles/Users.dart';
+import 'package:interior_design/databaseFiles/database.dart';
+import 'package:interior_design/databaseFiles/post.dart';
 import 'package:interior_design/screens/addPost.dart';
 
 class ExploreTab extends StatefulWidget {
@@ -12,39 +15,32 @@ class ExploreTab extends StatefulWidget {
 }
 
 class _ExploreTabState extends State<ExploreTab> {
-  // List<Post> post = [];
   User user;
+  Users mainUser;
   _ExploreTabState({this.user});
-
-  List<String> images = [
-    "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/amazon-rivet-furniture-1533048038.jpg",
-    "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/amazon-rivet-furniture-1533048038.jpg",
-    "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/amazon-rivet-furniture-1533048038.jpg",
-    "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/amazon-rivet-furniture-1533048038.jpg",
-    "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/amazon-rivet-furniture-1533048038.jpg"
-  ];
-
-  List<String> likes = [
-    "248 likes",
-    "100 likes",
-    "20 likes",
-    "500 likes",
-    "444 likes"
-  ];
-
-  List<String> description = [
-    "A very shiny and awesome chair",
-    "My Cupboard",
-    "This is Love",
-    "OMG, Awesome",
-    "No Caption"
-  ];
+  List<Post> lists;
+  bool loading = true;
 
   @override
   void initState() {
     super.initState();
+    addPost();
     // post = getAllPosts() as List<Post>;
     // print(post);
+  }
+
+  void addPost() async {
+    lists = await getAllPosts();
+    print(lists);
+    if (lists.isNotEmpty) {
+      setState(() {
+        loading = false;
+      });
+    }
+    mainUser = await getUser(widget.user);
+    print(mainUser.description);
+    print(mainUser.name);
+    print(mainUser.uid);
   }
 
   @override
@@ -76,72 +72,79 @@ class _ExploreTabState extends State<ExploreTab> {
               }),
         ],
       ),
-      body: Container(
-          padding: EdgeInsets.all(16.0),
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: images.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Column(
-                children: [
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  Image.network(
-                    images[index],
-                    width: 270.0,
-                  ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 50.0),
-                    child: Row(
-                      children: [
-                        Text(
-                          likes[index],
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(color: Colors.white, fontSize: 18.0),
+      body: loading
+          ? CircularProgressIndicator()
+          : Container(
+              padding: EdgeInsets.all(16.0),
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: lists.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      Image.network(
+                        lists[index].postImage,
+                        width: 270.0,
+                      ),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 50.0),
+                        child: Row(
+                          children: [
+                            Text(
+                              lists[index].usersLiked.length.toString(),
+                              textAlign: TextAlign.justify,
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 18.0),
+                            ),
+                            SizedBox(
+                              width: 70.0,
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                FontAwesomeIcons.heart,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  lists[index].likedPost(widget.user.uid);
+                                });
+                              },
+                            ),
+                            // IconButton(
+                            //   icon: Icon(
+                            //     FontAwesomeIcons.comment,
+                            //     color: Colors.white,
+                            //   ),
+                            //   onPressed: () {},
+                            // ),
+                            // IconButton(
+                            //   icon: Icon(
+                            //     FontAwesomeIcons.share,
+                            //     color: Colors.white,
+                            //   ),
+                            //   onPressed: () {},
+                            // )
+                          ],
                         ),
-                        SizedBox(
-                          width: 70.0,
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            FontAwesomeIcons.heart,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {},
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            FontAwesomeIcons.comment,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {},
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            FontAwesomeIcons.share,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {},
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  Text(
-                    description[index],
-                    textAlign: TextAlign.justify,
-                    style: TextStyle(color: Colors.white, fontSize: 18.0),
-                  ),
-                ],
-              );
-            },
-          )),
+                      ),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      Text(
+                        lists[index].description,
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(color: Colors.white, fontSize: 18.0),
+                      ),
+                    ],
+                  );
+                },
+              )),
     );
   }
 }
