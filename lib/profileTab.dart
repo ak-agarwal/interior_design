@@ -1,9 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:interior_design/databaseFiles/Users.dart';
 import 'package:interior_design/databaseFiles/database.dart';
 import 'package:interior_design/databaseFiles/post.dart';
 import 'package:interior_design/editUser.dart';
 
 class ProfileTab extends StatefulWidget {
+  final User user;
+
+  ProfileTab({this.user});
   @override
   _ProfileTabState createState() => _ProfileTabState();
 }
@@ -11,16 +16,17 @@ class ProfileTab extends StatefulWidget {
 class _ProfileTabState extends State<ProfileTab> {
   List<Post> lists;
   bool loading = true;
+  Users dbUser;
 
   @override
   void initState() {
     super.initState();
     addPost();
-    // post = getAllPosts() as List<Post>;
-    // print(post);
+    print(dbUser);
   }
 
   void addPost() async {
+    dbUser = await getUser(widget.user);
     lists = await getAllUsersPosts("SPdimIJOF9TsLMoIHiqGrZ5zRFP2");
 
     print(lists);
@@ -67,7 +73,7 @@ class _ProfileTabState extends State<ProfileTab> {
             title: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                "Jerry Doe",
+                dbUser.name,
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                     color: Colors.white,
@@ -86,7 +92,9 @@ class _ProfileTabState extends State<ProfileTab> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return EditUser();
+                            return EditUser(
+                              user: widget.user,
+                            );
                           },
                         ),
                       );
@@ -115,7 +123,7 @@ class _ProfileTabState extends State<ProfileTab> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "Hey!, Here is my Description",
+                  dbUser.description,
                   style: TextStyle(color: Colors.white),
                 ),
               ],

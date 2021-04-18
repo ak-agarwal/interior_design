@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:interior_design/ARPage.dart';
 import 'package:interior_design/exploreTab.dart';
-import 'package:interior_design/marketplaceTab.dart';
 import 'package:interior_design/profileTab.dart';
 
 class Dashboard extends StatefulWidget {
@@ -65,8 +65,10 @@ class _DashboardState extends State<Dashboard> {
           ExploreTab(
             user: widget.user,
           ),
-          MarketPlaceTab(),
-          ProfileTab(),
+          ARPage(),
+          ProfileTab(
+            user: widget.user,
+          ),
         ],
         onPageChanged: onPageChanged,
         controller: _pageController,

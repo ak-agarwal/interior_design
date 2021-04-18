@@ -51,24 +51,35 @@ void updateUser(Users user, DatabaseReference id) {
 //Save to db
 DatabaseReference saveUser(Users user) {
   var id = databaseReference.child('users/').push();
-  id.set({user.toJson()});
+  Map<String, dynamic> x = user.toJson();
+  id.set(x);
   return id;
 }
 
 Future<Users> getUser(User mainUser) async {
+  Users sendUser = null;
   DataSnapshot dataSnapshot = await databaseReference.child('users/').once();
+  print("one ");
   if (dataSnapshot.value != null) {
+    print("Two  ");
     dataSnapshot.value.forEach((key, value) {
       Users user = createUsers(value);
       user.setId(databaseReference.child('users/' + key));
+      print(user.uid);
+      print(user.uid == mainUser.uid);
       if (user.uid == mainUser.uid) {
+        sendUser = user;
         return user;
       }
     });
   }
-  Users users = new Users(mainUser);
-  users.setId(saveUser(users));
-  users.addDescription("Hey How are you");
-  users.addName("John Doe");
-  return users;
+  if (sendUser == null) {
+    print("endoffunc");
+    Users users = new Users(mainUser.uid);
+    users.setId(saveUser(users));
+    users.updateDetails("John Doe", "Hey, How are you");
+
+    return users;
+  }
+  return sendUser;
 }

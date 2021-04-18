@@ -1,11 +1,28 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:interior_design/databaseFiles/Users.dart';
+import 'package:interior_design/databaseFiles/database.dart';
 
 class EditUser extends StatefulWidget {
+  final User user;
+
+  EditUser({this.user});
   @override
   _EditUserState createState() => _EditUserState();
 }
 
 class _EditUserState extends State<EditUser> {
+  Users dbUser;
+
+  @override
+  void initState() {
+    super.initState();
+    getUse();
+  }
+
+  void getUse() async {
+    dbUser = await getUser(widget.user);
+  }
 
   final nameController = TextEditingController();
   final descController = TextEditingController();
@@ -33,16 +50,17 @@ class _EditUserState extends State<EditUser> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Center(
-              child: Text("Edit your profile", textAlign: TextAlign.justify, style: TextStyle(
-                    color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold
-                ),),
+              child: Text(
+                "Edit your profile",
+                textAlign: TextAlign.justify,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
             SizedBox(
               height: 30.0,
-            ),
-            CircleAvatar(
-              radius: 100.0,
-              child: Image.network("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/amazon-rivet-furniture-1533048038.jpg"),
             ),
             SizedBox(
               height: 30.0,
@@ -53,10 +71,13 @@ class _EditUserState extends State<EditUser> {
               decoration: InputDecoration(
                 prefixIcon: Padding(
                   padding: const EdgeInsetsDirectional.only(end: 8.0),
-                  child: Icon(Icons.person, color: Colors.white,),
+                  child: Icon(
+                    Icons.person,
+                    color: Colors.white,
+                  ),
                 ),
                 contentPadding:
-                EdgeInsets.symmetric(vertical: 15, horizontal: 18),
+                    EdgeInsets.symmetric(vertical: 15, horizontal: 18),
                 labelText: "Name",
                 fillColor: Colors.white24,
               ),
@@ -73,15 +94,21 @@ class _EditUserState extends State<EditUser> {
               decoration: InputDecoration(
                 prefixIcon: Padding(
                   padding: const EdgeInsetsDirectional.only(end: 8.0),
-                  child: Icon(Icons.description, color: Colors.white,),
+                  child: Icon(
+                    Icons.description,
+                    color: Colors.white,
+                  ),
                 ),
                 contentPadding:
-                EdgeInsets.symmetric(vertical: 15, horizontal: 18),
+                    EdgeInsets.symmetric(vertical: 15, horizontal: 18),
                 labelText: "Description",
                 fillColor: Colors.white24,
               ),
               maxLines: 1,
-              style: TextStyle(fontSize: 16.0, color: Colors.white,),
+              style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.white,
+              ),
               textInputAction: TextInputAction.done,
             ),
             SizedBox(
@@ -92,12 +119,16 @@ class _EditUserState extends State<EditUser> {
               minWidth: 200.0,
               child: RaisedButton(
                   color: Colors.grey,
-                  child: new Text("Save Changes", style: TextStyle(
-                      color: Colors.white
-                  ),),
-                  onPressed: () {},
-                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-              ),
+                  child: new Text(
+                    "Save Changes",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    dbUser.updateDetails(
+                        nameController.text, descController.text);
+                  },
+                  shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(30.0))),
             ),
             SizedBox(
               height: 30.0,
@@ -107,12 +138,13 @@ class _EditUserState extends State<EditUser> {
               minWidth: 200.0,
               child: RaisedButton(
                   color: Colors.red,
-                  child: new Text("Log Out", style: TextStyle(
-                      color: Colors.white
-                  ),),
+                  child: new Text(
+                    "Log Out",
+                    style: TextStyle(color: Colors.white),
+                  ),
                   onPressed: () {},
-                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-              ),
+                  shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(30.0))),
             )
           ],
         ),
